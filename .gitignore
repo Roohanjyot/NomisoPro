@@ -11,6 +11,7 @@
 # production
 /build
 /client/dist/bundle.js
+/server/controller/apiKey.js
 
 # misc
 .DS_Store

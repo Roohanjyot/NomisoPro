@@ -1,9 +1,9 @@
 module.exports = {
     entry: __dirname + '/client/src/index.jsx',
     mode: 'development',
-    externals: {
-        react: 'React',
-    },
+    // externals: {
+    //     react: 'React',
+    // },
     module: {
       rules: [
         {
