@@ -39,10 +39,11 @@ class Modal extends React.Component {
         }
         this.setState(this.baseState);
         this.props.showModal();
+        this.props.reload();
     }
 
     render() {
-        if (!this.props.show) {
+        if (!this.props.modalShowing) {
             return null;
         }
         return ReactDom.createPortal(

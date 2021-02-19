@@ -29,6 +29,38 @@ module.exports = {
                 })
             })
             .catch(err => console.error(err))
+        },
+        get : (req, res) => {
+            // console.log(1);
+            model.weatherData.get((err, data) => {
+                if (err) {
+                    res.status(400).json(err);
+                } else {
+                    res.json(data);
+                }
+            })
+        },
+        delete : (req, res) => {
+            let id = req.body._id;
+            model.weatherData.delete(id, (err) => {
+                if (err) {
+                    console.error(err);
+                    res.sendStatus(400);
+                } else {
+                    res.sendStatus(200);
+                }
+            })
+        },
+        patch : (req, res) => {
+            let city = req.body.city[0];
+            model.weatherData.patch(city, (err, data) => {
+                if (err) {
+                    console.error(err);
+                    res.sendStatus(400);
+                } else {
+                    res.json(data);
+                }
+            })
         }
     }
 }

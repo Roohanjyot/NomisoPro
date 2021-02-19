@@ -4,6 +4,51 @@ let mockData = require(path.join(__dirname, "exampleData.js"));
 let atlas = require(path.join(__dirname, "atlas.js"));
 let mongoAtlas = `mongodb+srv://Roohanjyot:${atlas.password}@cluster0.17ot2.mongodb.net/${atlas.dbName}?retryWrites=true&w=majority`;
 let mongoose = require("mongoose");
+let citySchema = mongoose.Schema({
+    coord: {
+        lon: Number,
+        lat: Number
+    },
+    weather: {
+        id: Number,
+        main: String,
+        description: String,
+        icon: String
+    },
+    base: String,
+    main: {
+        temp: Number,
+        feels_like: Number,
+        temp_min: Number,
+        temp_max: Number,
+        pressure: Number,
+        humidity: Number,
+        sea_level: Number,
+        grnd_level: Number
+    },
+    visibility: Number,
+    wind : {
+        speed: Number,
+        deg: Number,
+        gust: Number
+    },
+    clouds: {
+        all: Number
+    },
+    dt: Number,
+    sys: {
+        country: String,
+        sunrise: Number,
+        sunset: Number
+    },
+    timezone: Number,
+    api_id: Number,
+    name: String,
+    cod: Number,
+    lastUpdated: Date
+});
+
+let City = mongoose.model("City", citySchema);
 
 module.exports = {
     weatherData : {
@@ -18,53 +63,6 @@ module.exports = {
                 .then( () => {
                     console.log('Connected to database ');
 
-                    let citySchema = mongoose.Schema({
-                        id : {
-                            type : Number,
-                            default: true
-                        },
-                        coord: {
-                            lon: Number,
-                            lat: Number
-                        },
-                        weather: {
-                            id: Number,
-                            main: String,
-                            description: String,
-                            icon: String
-                        },
-                        base: String,
-                        main: {
-                            temp: Number,
-                            feels_like: Number,
-                            temp_min: Number,
-                            temp_max: Number,
-                            pressure: Number,
-                            humidity: Number,
-                            sea_level: Number,
-                            grnd_level: Number
-                        },
-                        visibility: Number,
-                        wind : {
-                            speed: Number,
-                            deg: Number,
-                            gust: Number
-                        },
-                        clouds: {
-                            all: Number
-                        },
-                        dt: Number,
-                        sys: {
-                            country: String,
-                            sunrise: Number,
-                            sunset: Number
-                        },
-                        timezone: Number,
-                        api_id: Number,
-                        name: String,
-                        cod: Number
-                    }, {timestamps: {createdAt: 'created_at'}});
-                    let City = mongoose.model("City", citySchema);
 
                     let newCityWeather = {
                         coord: {
@@ -72,10 +70,10 @@ module.exports = {
                             lat: obj.coord.lat
                         },
                         weather: {
-                            id: obj.weather.id,
-                            main: obj.weather.main,
-                            description: obj.weather.description,
-                            icon: obj.weather.icon
+                            id: obj.weather[0].id,
+                            main: obj.weather[0].main,
+                            description: obj.weather[0].description,
+                            icon: obj.weather[0].icon
                         },
                         base: obj.base,
                         main: {
@@ -106,14 +104,27 @@ module.exports = {
                         timezone: obj.timezone,
                         api_id: obj.id,
                         name: obj.name,
-                        cod: obj.cod
+                        cod: obj.cod,
+                        lastUpdated: Date.now() 
                     };
 
-                    let newCity = new City(newCityWeather);
+                    let query = City.where({name: obj.name});
+                    query.findOne((err, data) => {
+                        if (err) return console.error("error retrieving the data from atlas: \n", err);
+                        if (data) {
+                            query.findOneAndReplace({}, newCityWeather, (err, data) => {
+                                if (err) return console.error("error replacing an existing record \n", err);
+                                console.log("data set was already present so replaced it \n", data);
+                            })
+                        } else {
+                            let newCity = new City(newCityWeather);
 
-                    newCity.save((err) => {
-                        if (err) return console.error("Couldn't save to the database --> \n", err);
-                        console.log("saved to database");
+                            newCity.save((err) => {
+                                if (err) return console.error("Couldn't save to the database --> \n", err);
+                                console.log("saved to database");
+                            });
+
+                        }
                     });
 
                     cb(null);
@@ -122,6 +133,56 @@ module.exports = {
                     console.error(`Error connecting to the database. \n${err}`);
                     cb(err);
                 })
+        },
+        get : (cb) => {
+
+            const connectionParams={
+                useNewUrlParser: true,
+                useCreateIndex: true,
+                useUnifiedTopology: true 
+            }
+            mongoose.connect(mongoAtlas,connectionParams)
+            .then(() => {
+                console.log('Connected to database ');
+                
+                City.find({},(err, data) => {
+                    if (err) {
+                        cb(err);
+                    } else {
+                        cb(null, data);
+                    }
+                });
+            })
+        },
+        delete : (id, cb) => {
+            const connectionParams={
+                useNewUrlParser: true,
+                useCreateIndex: true,
+                useUnifiedTopology: true 
+            }
+            mongoose.connect(mongoAtlas,connectionParams)
+            .then(() => {
+                console.log('Connected to database');
+                City.deleteOne({_id : id}, (err) => {
+                    if (err) return cb(err);
+                    cb(null);
+                })
+            })
+        },
+        patch : (incomingData, cb) => {
+            const connectionParams={
+                useNewUrlParser: true,
+                useCreateIndex: true,
+                useUnifiedTopology: true 
+            }
+            mongoose.connect(mongoAtlas,connectionParams)
+            .then(() => {
+                console.log('Connected to database');
+                City.findOneAndUpdate({_id : incomingData._id}, incomingData, {new: true} , (err, outgoingData) => {
+                    if (err) return cb(err);
+                    cb(null, outgoingData);
+                })
+            })
         }
     }
 };

@@ -111,23 +111,4 @@
         color: #fff;
         font-size: 2rem;
     }
-
-    /* .nav-link-mobile {
-        display: block;
-        text-align: center;
-        padding: 1.5rem;
-        margin: 2rem auto;
-        border-radius: 4px;
-        width: 80%;
-        background: #4ad9e4;
-        text-decoration: none;
-        color: #fff;
-        font-size: 1.5rem;
-    } */
-
-    /* .nav-link-mobile:hover {
-        background: #fff;
-        color: #6568f4;
-        transition: 250ms;
-    } */
 }

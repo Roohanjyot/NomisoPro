@@ -22,12 +22,12 @@ class Navbar extends Component {
                     <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
                 </div>
                 <ul className={this.state.clicked ? 'nav-menu active' : 'nav-menu'}>
-                    <li>
+                    <li onClick={this.props.pageChange}>
                         <a className={"nav-link"} href={"#"}>
                             Home
                         </a>
                     </li>
-                    <li>
+                    <li onClick={this.props.pageChange}>
                         <a className={"nav-link"} href={"#"}>
                             Table View
                         </a>
@@ -37,7 +37,7 @@ class Navbar extends Component {
                             Track
                         </a>
                     </li>
-                    <li>
+                    <li onClick={this.props.pageChange}>
                         <a className={"nav-link"} href={"#"}>
                             Chart View
                         </a>
