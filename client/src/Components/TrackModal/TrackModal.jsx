@@ -1,4 +1,7 @@
 import React from "react";
+import ReactDom from "react-dom";
+import axios from "axios";
+import "./TrackModal.css";
 
 class Modal extends React.Component {
     constructor(props) {
@@ -9,9 +12,11 @@ class Modal extends React.Component {
             zipCode : "",
             country : ""
         };
+        this.baseState = this.state;
     }
 
-    handleChange (e) {
+
+    handleChange = (e) => {
         const target = e.target;
         const value = target.value;
         const name = target.name;
@@ -22,8 +27,17 @@ class Modal extends React.Component {
     }
 
     onSubmit = e => {
-        console.log(this.props.showModal);
+        // console.log(this.props.showModal);
         e.preventDefault();
+        if (this.state.cityName) {
+            axios({
+                method: 'post',
+                url: `${this.props.url}/weatherData`,
+                data: this.state
+            })
+            .then(res => console.log(res));
+        }
+        this.setState(this.baseState);
         this.props.showModal();
     }
 
@@ -31,21 +45,19 @@ class Modal extends React.Component {
         if (!this.props.show) {
             return null;
         }
-        return (
+        return ReactDom.createPortal(
             <div className="TrackModal">
                 <form>
-                    <label>
-                        City Name: 
-                        <input name="cityName" type="text" onChange={this.handleChange} value={this.state.cityName} />
-                        Zip Code: 
-                        <input name="zipCode" type="number" onChange={this.handleChange} value={this.state.zipCode} />
-                        Country: 
-                        <input name="country" type="text" onChange={this.handleChange} value={this.state.country} />
-                        <input type="submit" onClick={this.onSubmit}/>
+                    <label className={"modal-label"}>
+                        <input name="cityName" type="text" placeholder="City Name" onChange={this.handleChange} value={this.state.cityName} className={"modal-input"}/>
+                        <input name="zipCode" type="number" placeholder="Zip Code" onChange={this.handleChange} value={this.state.zipCode} className={"modal-input"}/>
+                        <input name="country" type="text" placeholder="Country" onChange={this.handleChange} value={this.state.country} className={"modal-input"}/>
+                        <input type="submit" onClick={this.onSubmit} className={"modal-input-btn"}/>
+                        <input type="submit" value="Cancel" onClick={this.onSubmit} className={"modal-input-btn"}/>
                     </label>
                 </form>
-            </div>
-        )
+            </div>,
+        document.getElementById("portal"))
     }
 }
 

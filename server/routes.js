@@ -8,6 +8,6 @@ let path = require("path");
 let controller = require(path.join(__dirname, "controller", "index.js"));
 
 // Establishing Call Architecture
-router.get("/weatherData", controller.weatherData.get);
+router.post("/weatherData", controller.weatherData.post);
 
 module.exports = router;

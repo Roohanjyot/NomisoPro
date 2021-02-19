@@ -1,0 +1,65 @@
+.TrackModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,.7);
+    z-index: 999;
+
+    
+    /* position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    padding: 50px;
+    z-index: 999; */
+    /* background:linear-gradient(90deg, rgb(59, 59, 59), rgb(1, 0, 8) 100%);
+    left: 0;
+    opacity: 1;
+    transition: all 0.5s ease;
+    z-index: 1; */
+}
+
+form {
+    display: block;
+    text-align: center;
+}
+
+.modal-label {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 50px;
+    z-index: 999;
+}
+
+
+.modal-input {
+    padding: 10px;
+    margin: 10px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    width: 200px;
+    box-sizing:border-box;
+}
+
+ .modal-input:hover {
+    box-shadow: 0 0 8px rgb(156, 156, 156);
+} 
+
+.modal-input-btn {
+    padding: 10px;
+    margin: 10px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    width: 200px;
+}
+
+.modal-input-btn:hover {
+    background-color: rgb(214, 214, 214);
+}

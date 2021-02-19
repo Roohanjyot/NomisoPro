@@ -12,6 +12,7 @@
 /build
 /client/dist/bundle.js
 /server/controller/apiKey.js
+/server/model/atlas.js
 
 # misc
 .DS_Store

@@ -8,7 +8,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      show : false
+      show : false,
+      url: "http://localhost:3000"
     }
   }
 
@@ -17,14 +18,14 @@ class App extends React.Component {
     this.setState({
       show: !this.state.show
     })
-    console.log(this.state)
+    // console.log(this.state)
   };
 
   render() {
     return (
       <div className="App">
         <Navbar showModal={this.showModal}/>
-        <Modal show={this.state.show} showModal={this.showModal}/>
+        <Modal show={this.state.show} showModal={this.showModal} url={this.state.url}/>
       </div>
     );
   }

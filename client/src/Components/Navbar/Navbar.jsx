@@ -24,22 +24,22 @@ class Navbar extends Component {
                 <ul className={this.state.clicked ? 'nav-menu active' : 'nav-menu'}>
                     <li>
                         <a className={"nav-link"} href={"#"}>
-                            "Home"
+                            Home
                         </a>
                     </li>
                     <li>
                         <a className={"nav-link"} href={"#"}>
-                            "Table View"
+                            Table View
                         </a>
                     </li>
                     <li onClick={this.props.showModal}>
                         <a className={"nav-link"} href={"#"}>
-                            "Track"
+                            Track
                         </a>
                     </li>
                     <li>
                         <a className={"nav-link"} href={"#"}>
-                            "Chart View"
+                            Chart View
                         </a>
                     </li>
                 </ul>
