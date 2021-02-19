@@ -63,7 +63,7 @@ module.exports = {
                         api_id: Number,
                         name: String,
                         cod: Number
-                    });
+                    }, {timestamps: {createdAt: 'created_at'}});
                     let City = mongoose.model("City", citySchema);
 
                     let newCityWeather = {
