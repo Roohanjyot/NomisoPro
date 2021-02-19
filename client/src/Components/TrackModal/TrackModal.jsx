@@ -29,7 +29,7 @@ class Modal extends React.Component {
     onSubmit = e => {
         // console.log(this.props.showModal);
         e.preventDefault();
-        if (this.state.cityName) {
+        if (this.state.cityName || this.state.zipCode) {
             axios({
                 method: 'post',
                 url: `${this.props.url}/weatherData`,

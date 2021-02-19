@@ -12,7 +12,7 @@ module.exports = {
             if (req.body.cityName) {
                 url = `https://api.openweathermap.org/data/2.5/weather?q=${req.body.cityName}&appid=${apiKey}`;
             } else if (req.body.zipCode) {
-                url  = `https://api.openweathermap.org/data/2.5/weather?q=${req.body.zipCode}&appid=${apiKey}`;
+                url  = `https://api.openweathermap.org/data/2.5/weather?zip=${req.body.zipCode}&appid=${apiKey}`;
             }
             axios({
                 methord: 'get',

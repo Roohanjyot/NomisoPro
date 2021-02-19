@@ -17,7 +17,8 @@ class App extends Component {
       url: "http://localhost:3000",
       data: [],
       // refresh: 0,
-      editIdx: -1
+      editIdx: -1,
+      homeClass : "wrap"
     }
   }
 
@@ -117,6 +118,12 @@ class App extends Component {
     return outputArr;
   }
 
+  classSwitcher = () => {
+    this.setState({
+      homeClass: this.state.homeClass === "wrap" ? "wrap.active" : "wrap"
+    })
+  }
+
   componentDidMount = () => {
     axios({
       method: 'get',
@@ -145,7 +152,7 @@ class App extends Component {
         />
         <Table 
           currentPage={this.state.currentPage} 
-          header={['City', 'Weather', 'Temp. Now', 'Feels Like', 'Temp. Max', 'Temp. Min', 'Humidity', 'Wind', 'Last Updated']} 
+          header={['Cities', 'Weather', 'Temp. Now (K)', 'Feels Like (K)', 'Temp. Max (K)', 'Temp. Min (K)', 'Humidity (%)', 'Wind (m/sec)', 'Last Updated']} 
           data={this.state.data}
           // refresh={this.state.refresh}
           handleRemove={this.handleRemove}
@@ -156,6 +163,8 @@ class App extends Component {
         />
         <Home 
           currentPage={this.state.currentPage}
+          homeClass={this.state.homeClass}
+          classSwitcher={this.classSwitcher}
         />
         <Chart currentPage={this.state.currentPage} data={this.chartDataSorter(this.state.data)}/>
       </div>
