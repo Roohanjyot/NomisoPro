@@ -1,6 +1,6 @@
 # This is a mock app
 
-![Alt Text](https://gifs.com/gif/nomiso-sizing-xnQqkP)
+![Alt Text](https://gifs.com/gif/nomiso-sizing-xnQqkP.gif)
 
 [![Alt text for your video](https://img.youtube.com/vi/VIDEO-ID/0.jpg)](https://youtu.be/ihMjjb-BlI8)
 
