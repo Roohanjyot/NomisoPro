@@ -1,6 +1,8 @@
 # This is a mock app
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/ihMjjb-BlI8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+![Alt Text](https://gifs.com/gif/nomiso-sizing-xnQqkP)
+
+[![Alt text for your video](https://img.youtube.com/vi/VIDEO-ID/0.jpg)](https://youtu.be/ihMjjb-BlI8)
 
 
 
